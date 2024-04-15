@@ -7,31 +7,100 @@
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
 
+      if(profile.active) {
+        if(reason) {
+          profile.active = false;
+          profile.reason = reason;
+          return profile;
+        } else {
+          return "confirm status manually";
+        }
+      }
+
+      else {
+        profile.active = true;
+        delete profile.reason;
+        return profile;
+      }
+
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      if(x<1 || x>3 || y<1 || y>3) {
+        return "invalid coordinates";
+      }
+      if(grid[y-1][x-1] == "🟦") {
+        return "🟦 🥳";
+      } else {
+        return "🟥 💀";
+      }
 
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
-
+      for(key in obj) {
+        if(key.length > 9) {
+          return "shorten all prop names to 9 chars or less";
+        }
+        if(obj[key] == null) {
+          delete obj[key];
+        }
+        if(obj[key] == 0) {
+          obj[key] = false;
+        }
+        if(obj[key] == 1) {
+          obj[key] = true;
+        }
+      }
+      return obj;
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      let words = text.split(' ');
+      let result = '';
+      for(idx in words) {
+        word = words[idx];
+        let forbiddenIndex = forbidden.indexOf(word);
+        if(forbiddenIndex == -1) { //if the word isn't forbidden
+          result += word;
+        } else {
+          for(let i = 0; i < word.length; i++) {
+            result += 'x';
+          }
+        }
+        if(idx < words.length - 1) {
+          result += ' ';
+        }
 
+      }
+      return result;
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      return '(' + num.slice(0, 3) +  ') ' + num.slice(3,6) + '-' + num.slice(6,10);
 
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
-
+      let consecutiveSixes = 0;
+      let rolls = 0;
+      let rollList = [];
+      while(consecutiveSixes < 3) {
+        let roll = Math.ceil(Math.random() * 6);
+        rolls += 1;
+        rollList.push(roll);
+        if(roll == 6) {
+          consecutiveSixes += 1;
+        } else {
+          consecutiveSixes = 0;
+        }
+      }
+      return rolls;
     }
 
     // 🧪 DO NOT make any changes below this line ===================
